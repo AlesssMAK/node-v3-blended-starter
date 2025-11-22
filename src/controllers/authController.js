@@ -3,6 +3,7 @@ import { User } from '../models/user.js';
 import bcrypt from 'bcrypt';
 import { Session } from '../models/session.js';
 import { createSession, setSessionCookies } from '../services/auth.js';
+import { COOKIES_KYES } from '../constants/index.js';
 
 export const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
@@ -46,4 +47,18 @@ export const loginUser = async (req, res) => {
   setSessionCookies(res, newSession);
 
   res.status(200).json(user);
+};
+
+export const logoutUser = async (req, res) => {
+  const { sessionId } = req.cookies;
+
+  if (sessionId) {
+    await Session.deleteOne({ _id: sessionId });
+  }
+
+  res.clearCookie(COOKIES_KYES.SESSION_ID);
+  res.clearCookie(COOKIES_KYES.ACCESS_TOKEN);
+  res.clearCookie(COOKIES_KYES.REFRESH_TOKEN);
+
+  res.status(204).send();
 };

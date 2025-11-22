@@ -9,4 +9,6 @@ router.post('/auth/register', celebrate(registerSchema), registerUser);
 
 router.post('/auth/login', celebrate(loginSchema), loginUser);
 
+router.post('/auth/logout', logoutUser);
+
 export default router;
