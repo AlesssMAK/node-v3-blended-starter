@@ -8,12 +8,14 @@ import { connectMongoDB } from './db/connectMongoDB.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errors } from 'celebrate';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 const PORT = process.env.PORT ?? 3030;
 
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 
 app.use(authRouters);
 app.use(productRouters);
