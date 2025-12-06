@@ -3,6 +3,7 @@ import 'dotenv/config';
 import cors from 'cors';
 import productRouters from './routes/productsRoutes.js';
 import authRouters from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js'
 
 import { connectMongoDB } from './db/connectMongoDB.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 app.use(authRouters);
 app.use(productRouters);
+app.use(userRoutes);
 
 app.use(notFoundHandler);
 app.use(errors());
